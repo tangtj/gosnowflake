@@ -44,7 +44,7 @@ func (s *Snowflake) NextId() int64 {
 	}
 
 	if now == s.lastTime {
-		s.sequence = s.sequence + 1&maxSequence
+		s.sequence = (s.sequence + 1) & maxSequence
 		if s.sequence == 0 {
 			now = s.getNextMill()
 			s.sequence = 0
