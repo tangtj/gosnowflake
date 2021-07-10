@@ -28,7 +28,7 @@ const startTimestamp = 1136185445000
 
 func NewSnowFlake(machineId int) *Snowflake {
 	// 取后十位
-	time.Now().Format("20060102150405")
+	//time.Now().Format("20060102150405")
 	sn := &Snowflake{MachineId: int16(machineId & maxMachine), locker: &sync.Mutex{}}
 	return sn
 }
@@ -62,8 +62,7 @@ func (s *Snowflake) generateId(now int64, seq int64) int64 {
 
 func (s *Snowflake) getNextMill() int64 {
 	n := now()
-	for n = now(); !(n > s.lastTime); {
-		return n
+	for ; !(n > s.lastTime); n = now() {
 	}
 	return n
 }

@@ -1,6 +1,8 @@
 package gosnowflake
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestSnowflake_NextId(t *testing.T) {
 	sn := NewSnowFlake(10)
@@ -20,5 +22,14 @@ func BenchmarkName(b *testing.B) {
 			}
 		}()
 
+	}
+}
+
+func TestSnowflake_getNextMill(t *testing.T) {
+	sn := NewSnowFlake(10)
+	n := now()
+	sn.lastTime = n
+	if sn.getNextMill() == n {
+		t.Error("获取下一秒异常")
 	}
 }
